@@ -6,7 +6,7 @@ git clone ...
 cd suse-docker-saltclient
 ```
 
-#Build
+# Build
 ```
 docker build -t salttest:123 .
 ```
