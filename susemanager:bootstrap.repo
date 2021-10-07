@@ -1,0 +1,7 @@
+[susemanager:bootstrap]
+name=susemanager:bootstrap
+baseurl=https://suma4.ts.site/pub/repositories/sle/15/3/bootstrap
+enabled=1
+autorefresh=1
+keeppackages=0
+gpgcheck=0
