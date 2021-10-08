@@ -19,12 +19,12 @@ RUN zypper -n ref && \
 RUN zypper -n in --force-resolution rpm
 
 COPY ./bootstrap.sh /usr/local/sbin/bootstrap.sh
-COPY ./register.sh /usr/local/sbin/register.sh
-COPY ./register.service /etc/systemd/system/register.service
+COPY ./system-faker.sh /usr/local/sbin/system-faker.sh
+COPY ./system-faker.service /etc/systemd/system/system-faker.service
 
-RUN chmod +x /usr/local/sbin/bootstrap.sh /usr/local/sbin/register.sh
+RUN chmod +x /usr/local/sbin/bootstrap.sh /usr/local/sbin/system-faker.sh
 
-RUN systemctl enable register.service
+RUN systemctl enable system-faker.service
 
 ENV ACTIVATION_KEY="1-example-key"
 ENV SUMA_HOSTNAME="suma.example.com"
