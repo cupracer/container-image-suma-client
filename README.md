@@ -89,7 +89,7 @@ podman build -f Dockerfile-15.3.13.18 -t saltclient:15.3.13.18 .
 
 ## Use the host's RMT server connection to retrieve packages for image building
 
-Retrieve the RMT's CA certiciate and add it to your Dockerfile (right at the beginning):
+Retrieve the RMT's CA certificate and add it to your Dockerfile (right at the beginning):
 ```
 COPY ./rmt-server.crt /etc/pki/trust/anchors/rmt-server.crt
 RUN update-ca-certificates
