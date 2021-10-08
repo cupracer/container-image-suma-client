@@ -45,7 +45,12 @@ podman build -t salttest .
 ## a single instance
 
 ```
-podman run -d --restart always -e ACTIVATION_KEY=1-mykey -e SUMA_HOSTNAME=suma.example.com saltclient
+podman run -d --restart always \
+	-e ACTIVATION_KEY=1-mykey \
+	-e SUMA_HOSTNAME=suma.example.com \
+	--name saltclient1 \
+	-h saltclient1 \
+	saltclient
 ```
 
 ## a whole bunch
@@ -53,7 +58,12 @@ podman run -d --restart always -e ACTIVATION_KEY=1-mykey -e SUMA_HOSTNAME=suma.e
 ```
 for i in $(seq 1 10); 
 do 
-	podman run -d --restart always -e ACTIVATION_KEY=1-mykey -e SUMA_HOSTNAME=suma.example.com --name saltclient${i} saltclient
+	podman run -d --restart always \
+		-e ACTIVATION_KEY=1-mykey \
+		-e SUMA_HOSTNAME=suma.example.com \
+		--name saltclient${i} \
+		-h saltclient${i} \
+		saltclient
 done
 ```
 
