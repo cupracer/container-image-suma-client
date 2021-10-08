@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if ! [ -f /registered ]; then
-	/usr/local/bin/SLE-15-SP3-x86_64-basic.sh
+	/usr/local/sbin/bootstrap.sh
 	touch /registered
 else
 	echo "* Machine already initialized."

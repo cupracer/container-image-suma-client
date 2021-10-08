@@ -75,12 +75,12 @@ echo "SUSE Manager Server Client bootstrap script v4.0"
 
 # can be edited, but probably correct (unless created during initial install):
 # NOTE: ACTIVATION_KEYS *must* be used to bootstrap a client machine.
-ACTIVATION_KEYS=1-sles-15-sp3-x86_64-basic
+ACTIVATION_KEYS="${ACTIVATION_KEY}"
 ORG_GPG_KEY=
 
 # can be edited, but probably correct:
 CLIENT_OVERRIDES=client-config-overrides.txt
-HOSTNAME=suma.int.team-schulte.com
+HOSTNAME="${SUMA_HOSTNAME}"
 
 ORG_CA_CERT=rhn-org-trusted-ssl-cert-1.0-1.noarch.rpm
 ORG_CA_CERT_IS_RPM_YN=1

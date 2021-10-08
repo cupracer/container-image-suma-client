@@ -18,13 +18,16 @@ RUN zypper -n install dbus-1 gzip iproute2 kbd kbd-legacy kmod libapparmor1 liba
 
 ####
 
-COPY ./SLE-15-SP3-x86_64-basic.sh /usr/local/bin/SLE-15-SP3-x86_64-basic.sh
+COPY ./bootstrap.sh /usr/local/sbin/bootstrap.sh
 COPY ./register.sh /usr/local/sbin/register.sh
 COPY ./register.service /etc/systemd/system/register.service
 
-RUN chmod +x /usr/local/bin/SLE-15-SP3-x86_64-basic.sh /usr/local/sbin/register.sh
+RUN chmod +x /usr/local/sbin/bootstrap.sh /usr/local/sbin/register.sh
 
 RUN systemctl enable register.service
+
+ENV ACTIVATION_KEY="1-example-key"
+ENV SUMA_HOSTNAME="suma.example.com"
 
 CMD [ "/sbin/init" ]
 
