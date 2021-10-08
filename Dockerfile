@@ -9,7 +9,8 @@ RUN zypper -n ref && \
 	vim \
 	awk \
 	less \
-	command-not-found
+	command-not-found \
+	systemd-sysvinit
 
 ###
 
@@ -18,12 +19,12 @@ RUN zypper -n install dbus-1 gzip iproute2 kbd kbd-legacy kmod libapparmor1 liba
 ####
 
 COPY ./SLE-15-SP3-x86_64-basic.sh /usr/local/bin/SLE-15-SP3-x86_64-basic.sh
-COPY ./start.sh /start.sh
-COPY ./shutdown /usr/local/sbin/shutdown
+COPY ./register.sh /usr/local/sbin/register.sh
+COPY ./register.service /etc/systemd/system/register.service
 
-RUN chmod +x /usr/local/bin/SLE-15-SP3-x86_64-basic.sh /start.sh /usr/local/sbin/shutdown
+RUN chmod +x /usr/local/bin/SLE-15-SP3-x86_64-basic.sh /usr/local/sbin/register.sh
 
-COPY ./status.py /usr/lib/python3.6/site-packages/salt/modules/status.py.fake
+RUN systemctl enable register.service
 
-CMD /start.sh
+CMD [ "/sbin/init" ]
 

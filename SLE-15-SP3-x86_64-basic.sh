@@ -75,12 +75,12 @@ echo "SUSE Manager Server Client bootstrap script v4.0"
 
 # can be edited, but probably correct (unless created during initial install):
 # NOTE: ACTIVATION_KEYS *must* be used to bootstrap a client machine.
-ACTIVATION_KEYS=1-SLE-15-SP3-x86_64-basic
+ACTIVATION_KEYS=1-sles-15-sp3-x86_64-basic
 ORG_GPG_KEY=
 
 # can be edited, but probably correct:
 CLIENT_OVERRIDES=client-config-overrides.txt
-HOSTNAME=suma4.ts.site
+HOSTNAME=suma.int.team-schulte.com
 
 ORG_CA_CERT=rhn-org-trusted-ssl-cert-1.0-1.noarch.rpm
 ORG_CA_CERT_IS_RPM_YN=1
@@ -780,13 +780,13 @@ echo "  (will be re-added via salt state)"
 
 removeTLSCertificate
 
-#echo "* starting salt daemon and enabling it during boot"
-#
-#if [ -f /usr/lib/systemd/system/salt-minion.service ] || [ -f /lib/systemd/system/salt-minion.service ] ; then
-#    systemctl enable salt-minion
-#    systemctl restart salt-minion
-#else
-#    /etc/init.d/salt-minion restart
-#    /sbin/chkconfig --add salt-minion
-#fi
+echo "* starting salt daemon and enabling it during boot"
+
+if [ -f /usr/lib/systemd/system/salt-minion.service ] || [ -f /lib/systemd/system/salt-minion.service ] ; then
+    systemctl enable salt-minion
+    systemctl restart salt-minion
+else
+    /etc/init.d/salt-minion restart
+    /sbin/chkconfig --add salt-minion
+fi
 echo "-bootstrap complete-"

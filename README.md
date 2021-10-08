@@ -8,11 +8,11 @@ cd suse-docker-saltclient
 
 # Build
 ```
-docker build -t salttest:123 .
+podman build -t salttest .
 ```
 
 # Run
 ```
-for i in $(seq 1 10); do docker run -d --name saltclient${i} salttest:123; done
+for i in $(seq 1 10); do podman run -d --name saltclient${i} salttest; done
 ```
 
