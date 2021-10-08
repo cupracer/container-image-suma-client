@@ -50,3 +50,15 @@ COPY ./rmt-server.crt /etc/pki/trust/anchors/rmt-server.crt
 RUN update-ca-certificates
 ```
 
+## Adjust sysctl settings to run a whole lot of instances with Podman < 3.2.2 
+
+see: 
+- https://github.com/cri-o/ocicni/pull/92/commits/92f104c2fed3d15c416adde0908d4d82ba2083df
+- https://fossies.org/linux/podman/RELEASE_NOTES.md
+
+```
+ # cat /etc/sysctl.d/99-podman.conf
+fs.inotify.max_user_instances = 128001
+fs.inotify.max_user_watches = 65536001
+```
+
