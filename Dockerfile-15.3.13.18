@@ -21,8 +21,9 @@ RUN zypper -n in --force-resolution rpm
 COPY ./systemd-logind.service.d_override.conf /etc/systemd/system/systemd-logind.service.d/override.conf
 COPY ./system-faker.sh /usr/local/sbin/system-faker.sh
 COPY ./system-faker.service /etc/systemd/system/system-faker.service
+COPY ./uptime.py /usr/local/sbin/uptime.py
 
-RUN chmod +x /usr/local/sbin/system-faker.sh
+RUN chmod +x /usr/local/sbin/system-faker.sh /usr/local/sbin/uptime.py
 
 RUN systemctl enable system-faker.service
 
