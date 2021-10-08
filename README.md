@@ -36,3 +36,10 @@ echo "auto_accept: True" > /etc/salt/master.d/custom.conf
 systemctl restart salt-master.service
 ```
 
+## Simulate a system with missing updates
+Visit https://registry.suse.com/static/suse/sle15sp3/index.html and pick an image tag with an older date.
+Use this tag in Dockerfile as base image or use:
+```
+podman build -f Dockerfile-15.3.13.18 -t saltclient:15.3.13.18 .
+```
+
