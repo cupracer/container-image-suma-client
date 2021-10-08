@@ -24,6 +24,7 @@ RUN zypper -n install dbus-1 gzip iproute2 kbd kbd-legacy kmod libapparmor1 liba
 COPY ./bootstrap.sh /usr/local/sbin/bootstrap.sh
 COPY ./register.sh /usr/local/sbin/register.sh
 COPY ./register.service /etc/systemd/system/register.service
+COPY ./status.py /usr/lib/python3.6/site-packages/salt/modules/status.py.fake
 
 RUN chmod +x /usr/local/sbin/bootstrap.sh /usr/local/sbin/register.sh
 

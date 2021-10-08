@@ -27,6 +27,7 @@ RUN zypper -n in --force-resolution rpm
 COPY ./bootstrap.sh /usr/local/sbin/bootstrap.sh
 COPY ./register.sh /usr/local/sbin/register.sh
 COPY ./register.service /etc/systemd/system/register.service
+COPY ./status.py /usr/lib/python3.6/site-packages/salt/modules/status.py.fake
 
 RUN chmod +x /usr/local/sbin/bootstrap.sh /usr/local/sbin/register.sh
 
