@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if ! [ -f /registered ]; then
-	/usr/local/sbin/bootstrap.sh
+	curl -Sks https://${SUMA_HOSTNAME}/pub/bootstrap/bootstrap-podman.sh | /bin/bash
 	touch /registered
 else
 	echo "* Machine already registered."

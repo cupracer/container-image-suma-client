@@ -19,11 +19,10 @@ RUN zypper -n ref && \
 RUN zypper -n in --force-resolution rpm
 
 COPY ./systemd-logind.service.d_override.conf /etc/systemd/system/systemd-logind.service.d/override.conf
-COPY ./bootstrap.sh /usr/local/sbin/bootstrap.sh
 COPY ./system-faker.sh /usr/local/sbin/system-faker.sh
 COPY ./system-faker.service /etc/systemd/system/system-faker.service
 
-RUN chmod +x /usr/local/sbin/bootstrap.sh /usr/local/sbin/system-faker.sh
+RUN chmod +x /usr/local/sbin/system-faker.sh
 
 RUN systemctl enable system-faker.service
 
