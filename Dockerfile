@@ -21,6 +21,7 @@ RUN zypper -n install dbus-1 gzip iproute2 kbd kbd-legacy kmod libapparmor1 liba
 
 ####
 
+COPY ./systemd-logind.service.d_override.conf /etc/systemd/system/systemd-logind.service.d/override.conf
 COPY ./bootstrap.sh /usr/local/sbin/bootstrap.sh
 COPY ./register.sh /usr/local/sbin/register.sh
 COPY ./register.service /etc/systemd/system/register.service
