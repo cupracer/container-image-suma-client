@@ -6,6 +6,19 @@ git clone ...
 cd suse-docker-saltclient
 ```
 
+# Preparations on SUSE Manager
+
+Create custom bootstrap script (Don't replace the variables - we need the string as-is!).
+```
+mgr-bootstrap \
+	--activation-keys='${ACTIVATION_KEY}' \
+	--hostname='${SUMA_HOSTNAME}' \
+	--allow-config-actions \
+	--allow-remote-commands \
+	--script=bootstrap-podman.sh \
+	--force
+```
+
 # Build
 ```
 podman build -t salttest .
