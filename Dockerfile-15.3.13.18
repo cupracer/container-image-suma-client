@@ -38,9 +38,3 @@ ENV SUMA_HOSTNAME="suma.example.com"
 
 CMD [ "/sbin/init" ]
 
-
-
-        less \
-        command-not-found \
-        systemd-sysvinit
-
