@@ -7,20 +7,17 @@ else
 	echo "* Machine already initialized."
 fi
 
-echo "* Placing fake Salt module"
-cp -a /usr/lib/python3.6/site-packages/salt/modules/status.py.fake /usr/lib/python3.6/site-packages/salt/modules/status.py
+echo "* Use fake uptime in Salt module"
+sed -i 's/\/proc\/uptime/\/tmp\/uptime/' /usr/lib/python3.6/site-packages/salt/modules/status.py
 
-#echo "* Enter dummy loop"
-#
-#COUNTER=0
-#
-#while :; 
-#do 
-#	sleep 1
-#	let COUNTER=$COUNTER+1
-#
-#	if [ $COUNTER -eq 200 ]; then
-#		cp /usr/lib/python3.6/site-packages/salt/modules/status.py.fake /usr/lib/python3.6/site-packages/salt/modules/status.py
-#	fi
-#done
+echo "* Enter dummy loop to fake uptime"
+
+COUNTER=1
+
+while :; 
+do 
+	sleep 1
+	let COUNTER=$COUNTER+1
+	echo "${COUNTER} ${COUNTER}" > /tmp/uptime
+done
 
