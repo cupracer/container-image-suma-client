@@ -1,13 +1,11 @@
 [Unit]
-Description=Fake a real system
-#After=network.target
+Description=Apply system modifications
 
 [Service]
 Type=oneshot
 PassEnvironment=ACTIVATION_KEY SUMA_HOSTNAME
-ExecStart=/usr/local/sbin/system-faker.sh
+ExecStart=/usr/local/sbin/system-mods.sh
 RemainAfterExit=true
-ExecStop=/usr/local/sbin/system-faker.sh
 StandardOutput=journal
 
 [Install]

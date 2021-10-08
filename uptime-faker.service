@@ -1,0 +1,11 @@
+[Unit]
+Description=Fake uptime in /tmp/uptime
+DefaultDependencies=no
+
+[Service]
+Type=simple
+ExecStart=/usr/local/sbin/uptime.py
+
+[Install]
+WantedBy=sysinit.target
+
