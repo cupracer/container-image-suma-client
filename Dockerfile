@@ -16,13 +16,15 @@ RUN zypper -n ref && \
 	systemd-sysvinit
 
 COPY ./systemd-logind.service.d_override.conf /etc/systemd/system/systemd-logind.service.d/override.conf
-COPY ./system-faker.sh /usr/local/sbin/system-faker.sh
-COPY ./system-faker.service /etc/systemd/system/system-faker.service
+COPY ./system-mods.sh /usr/local/sbin/system-mods.sh
+COPY ./uptime-faker.service /etc/systemd/system/uptime-faker.service
+COPY ./system-mods.service /etc/systemd/system/system-mods.service
 COPY ./uptime.py /usr/local/sbin/uptime.py
 
-RUN chmod +x /usr/local/sbin/system-faker.sh /usr/local/sbin/uptime.py
+RUN chmod +x /usr/local/sbin/system-mods.sh /usr/local/sbin/uptime.py
 
-RUN systemctl enable system-faker.service
+RUN systemctl enable uptime-faker.service
+RUN systemctl enable system-mods.service
 
 ENV ACTIVATION_KEY="1-example-key"
 ENV SUMA_HOSTNAME="suma.example.com"
