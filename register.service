@@ -1,0 +1,14 @@
+[Unit]
+Description=SUMA registration
+#After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/register.sh
+RemainAfterExit=true
+ExecStop=/usr/local/sbin/register.sh
+StandardOutput=journal
+
+[Install]
+WantedBy=multi-user.target
+
