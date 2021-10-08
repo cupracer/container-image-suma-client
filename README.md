@@ -17,7 +17,7 @@ podman build -t salttest .
 
 ## a single instance
 ```
-podman run -d --restart always -e ACTIVATION_KEY=1-mykey -e SUMA_HOSTNAME=suma.example.com
+podman run -d --restart always -e ACTIVATION_KEY=1-mykey -e SUMA_HOSTNAME=suma.example.com saltclient
 ```
 
 ## a whole bunch
