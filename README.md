@@ -65,11 +65,11 @@ To reduce performance peaks when creating multiple containers at once, the follo
 
 ```
 podman run....
-	-e DELAY_MIN_SEC=x -e DELAY_MAX_SEC=y
+	-e MIN_DELAY_SEC=x -e MAX_DELAY_SEC=y
 .....
 ```
 
-This will chose a random number between `DELAY_MIN_SEC` and `DELAY_MAX_SEC` and will wait this value in seconds before starting the bootstrap script.
+This will chose a random number between `MIN_DELAY_SEC` and `MAX_DELAY_SEC` and will wait this value in seconds before starting the bootstrap script.
 The default values of these variables are "0", so a delay is not used if not requested explicitly.
 
 ## Let salt-master on SUSE-Manager automatically accept new keys
