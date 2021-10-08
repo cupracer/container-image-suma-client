@@ -5,15 +5,15 @@ FROM registry.suse.com/suse/sle15:latest
 
 RUN zypper -n ref && \
 	zypper -n install \
-	awk \
-	command-not-found \
-	curl \
-	hostname \
-	less \
-	systemd-sysvinit \
-	vim \
-	w3m \
-	wget
+		awk \
+		command-not-found \
+		curl \
+		hostname \
+		less \
+		systemd-sysvinit \
+		vim \
+		w3m \
+		wget
 
 COPY ./systemd-logind.service.d_override.conf /etc/systemd/system/systemd-logind.service.d/override.conf
 COPY ./uptime-faker.service /etc/systemd/system/uptime-faker.service
@@ -32,6 +32,8 @@ RUN systemctl enable \
 
 ENV ACTIVATION_KEY="1-example-key"
 ENV SUMA_HOSTNAME="suma.example.com"
+ENV MIN_DELAY_SEC=0
+ENV MAX_DELAY_SEC=0
 
 CMD [ "/sbin/init" ]
 

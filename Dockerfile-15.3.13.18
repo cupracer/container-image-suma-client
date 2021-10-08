@@ -5,15 +5,15 @@ FROM registry.suse.com/suse/sle15:15.3.13.18
 
 RUN zypper -n ref && \
 	zypper -n install \
-	awk \
-	command-not-found \
-	curl \
-	hostname \
-	less \
-	systemd-sysvinit \
-	vim \
-	w3m \
-	wget
+		awk \
+		command-not-found \
+		curl \
+		hostname \
+		less \
+		systemd-sysvinit \
+		vim \
+		w3m \
+		wget
 
 # Workaround to replace rpm-ndb version from public-cloud module with default rpm
 RUN zypper -n in --force-resolution rpm
@@ -35,6 +35,8 @@ RUN systemctl enable \
 
 ENV ACTIVATION_KEY="1-example-key"
 ENV SUMA_HOSTNAME="suma.example.com"
+ENV MIN_DELAY_SEC=0
+ENV MAX_DELAY_SEC=0
 
 CMD [ "/sbin/init" ]
 
