@@ -7,6 +7,9 @@ else
 	echo "* Machine already initialized."
 fi
 
+echo "* Placing fake Salt module"
+cp -a /usr/lib/python3.6/site-packages/salt/modules/status.py.fake /usr/lib/python3.6/site-packages/salt/modules/status.py
+
 #echo "* Enter dummy loop"
 #
 #COUNTER=0
