@@ -1,0 +1,15 @@
+[Unit]
+Description=Fake a real system
+#After=network.target
+
+[Service]
+Type=oneshot
+PassEnvironment=ACTIVATION_KEY SUMA_HOSTNAME
+ExecStart=/usr/local/sbin/system-faker.sh
+RemainAfterExit=true
+ExecStop=/usr/local/sbin/system-faker.sh
+StandardOutput=journal
+
+[Install]
+WantedBy=multi-user.target
+
