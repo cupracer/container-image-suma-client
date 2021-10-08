@@ -43,3 +43,10 @@ Use this tag in Dockerfile as base image or use:
 podman build -f Dockerfile-15.3.13.18 -t saltclient:15.3.13.18 .
 ```
 
+## Use host's RMT server connection as package sources for image building
+Retrieve RMT's CA certiciate and add it to your Dockerfile (right at the beginning):
+```
+COPY ./rmt-server.crt /etc/pki/trust/anchors/rmt-server.crt
+RUN update-ca-certificates
+```
+

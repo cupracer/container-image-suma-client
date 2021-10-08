@@ -1,5 +1,8 @@
 FROM registry.suse.com/suse/sle15:latest
 
+#COPY ./some-ca.crt /etc/pki/trust/anchors/some-ca.crt
+#RUN update-ca-certificates
+
 RUN zypper -n ref && \
 	zypper -n install \
 	w3m \
