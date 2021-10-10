@@ -69,6 +69,16 @@ done
 
 # Hints
 
+## Skip SUSE Manager registration
+
+Every container will try to register itself against a SUSE-Manager. To skip registration, change the environment variable `REGISTER=1` to something else:
+
+```
+podman run....
+	-e REGISTER=0
+.....
+```
+
 ## Delay execution of bootstrap script
 
 To reduce performance peaks when creating multiple containers at once, the following environment variables can be used to delay the bootstrap script execution:
