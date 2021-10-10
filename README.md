@@ -24,18 +24,24 @@ cd suse-docker-saltclient
 Create custom bootstrap script (Don't replace the variables - we need the string as-is!).
 ```
 mgr-bootstrap \
-	--activation-keys='${ACTIVATION_KEY}' \
-	--hostname='${SUMA_HOSTNAME}' \
-	--allow-config-actions \
-	--allow-remote-commands \
-	--script=bootstrap-podman.sh \
-	--force
+  --activation-keys='${ACTIVATION_KEY}' \
+  --hostname='${SUMA_HOSTNAME}' \
+  --allow-config-actions \
+  --allow-remote-commands \
+  --script=bootstrap-podman.sh \
+  --force
 ```
 
 # Build
 
+This repository contains a few different Dockerfiles. Pick one and copy it to `Dockerfile` and make adjustments as needed. You could as well skip this step, but you'd then need to specify the Dockerfile to be used with `-f` for `podman build`.
+
 ```
-podman build -t salttest .
+podman build -t saltclient .
+```
+or
+```
+podman build -f Dockerfile.sle15-sp3:latest -t saltclient .
 ```
 
 # Run
@@ -46,11 +52,11 @@ podman build -t salttest .
 
 ```
 podman run -d --restart always \
-	-e ACTIVATION_KEY=1-mykey \
-	-e SUMA_HOSTNAME=suma.example.com \
-	--name saltclient1 \
-	-h saltclient1 \
-	saltclient
+  -e ACTIVATION_KEY=1-mykey \
+  -e SUMA_HOSTNAME=suma.example.com \
+  --name saltclient1 \
+  -h saltclient1 \
+  saltclient
 ```
 
 ## a whole bunch
@@ -58,12 +64,12 @@ podman run -d --restart always \
 ```
 for i in $(seq 1 10); 
 do 
-	podman run -d --restart always \
-		-e ACTIVATION_KEY=1-mykey \
-		-e SUMA_HOSTNAME=suma.example.com \
-		--name saltclient${i} \
-		-h saltclient${i} \
-		saltclient
+  podman run -d --restart always \
+    -e ACTIVATION_KEY=1-mykey \
+    -e SUMA_HOSTNAME=suma.example.com \
+    --name saltclient${i} \
+    -h saltclient${i} \
+    saltclient
 done
 ```
 
@@ -75,7 +81,7 @@ Every container will try to register itself against a SUSE-Manager. To skip regi
 
 ```
 podman run....
-	-e REGISTER=0
+  -e REGISTER=0
 .....
 ```
 
@@ -85,7 +91,7 @@ To reduce performance peaks when creating multiple containers at once, the follo
 
 ```
 podman run....
-	-e MIN_DELAY_SEC=x -e MAX_DELAY_SEC=y
+  -e MIN_DELAY_SEC=x -e MAX_DELAY_SEC=y
 .....
 ```
 
@@ -133,3 +139,4 @@ Load the adjusted values with:
 ```
 sysctl -p --system
 ```
+
