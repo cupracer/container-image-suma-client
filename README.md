@@ -1,6 +1,6 @@
 # container-image-suma-client
 
-This repository contains the necessary components to create a minimal container image based on a SUSE Linux Enterprise Server to be used to create lightweight test systems to connect to a SUSE Manager.
+This repository contains the necessary components to create a minimal container image based on a SUSE Linux Enterprise Server (SLES) or openSUSE to be used to create lightweight test systems to connect to a SUSE Manager.
 
 The container needs the name of an accessible SUSE Manager server and an activation key. It will download a special bootstrap script and then register against the SUSE Manager. If everything was successful, the running container is connected to the SUSE Manager via salt-minion and can basically be managed centrally.
 
