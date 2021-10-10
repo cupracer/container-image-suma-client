@@ -37,6 +37,7 @@ mgr-bootstrap \
 This repository contains a few different Dockerfiles. Pick one and copy it to `Dockerfile` and make adjustments as needed. You could as well skip this step, but you'd then need to specify the Dockerfile to be used with `-f` for `podman build`.
 
 ```
+cp Dockerfile.sle15-sp3\:latest Dockerfile
 podman build -t saltclient .
 ```
 or
