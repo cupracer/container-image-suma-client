@@ -1,4 +1,4 @@
-# suse-docker-saltclient
+# container-image-suma-client
 
 This repository contains the necessary components to create a minimal container image based on a SUSE Linux Enterprise Server to be used to create lightweight test systems to connect to a SUSE Manager.
 
