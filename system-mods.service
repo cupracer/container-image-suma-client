@@ -3,7 +3,7 @@ Description=Apply system modifications
 
 [Service]
 Type=oneshot
-PassEnvironment=ACTIVATION_KEY SUMA_HOSTNAME MIN_DELAY_SEC MAX_DELAY_SEC
+PassEnvironment=REGISTER ACTIVATION_KEY SUMA_HOSTNAME MIN_DELAY_SEC MAX_DELAY_SEC
 ExecStart=/usr/local/sbin/system-mods.sh
 RemainAfterExit=true
 StandardOutput=journal
