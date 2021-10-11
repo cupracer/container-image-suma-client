@@ -156,3 +156,6 @@ sysctl -p --system
 
 Please note that the above values were chosen very half-heartedly and randomly... but at least they worked for ~500 containers.
 
+# License
+
+Licensed under the Apache License, Version 2.0. See [LICENSE](https://github.com/cupracer/container-image-suma-client/blob/master/LICENSE) for the full license text.
