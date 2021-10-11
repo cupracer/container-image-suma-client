@@ -11,7 +11,7 @@ The container needs the name of an accessible SUSE Manager server and an activat
 # Requirements
 
 * This project requires Podman to work correctly. Docker does not seem to have the capability to run containers with Systemd on PID 1.
-* The host which runs Podman needs to be registered against SUSE Customer Center (SCC) or a local RMT server to be able to share its repository access (via "container-suseconnect-zypp") while building SLE-based images. See [here](#use-the-hosts-rmt-server-connection-to-retrieve-packages-for-image-building) to learn how to share and use your RMT's CA certificate during image building.
+* The host which runs Podman needs to be registered against SUSE Customer Center (SCC) or a local RMT server to be able to share its repository access while building SLE-based images. See [Building images on SLE systems registered with RMT or SMT](#building-images-on-sle-systems-registered-with-rmt-or-smt) to learn about limitations on using SLE-based images and how to use your RMT's CA certificate during image building.
 
 # Checkout
 
@@ -114,7 +114,14 @@ Use this tag in Dockerfile as base image or use:
 podman build -f Dockerfile.sle15-sp3:15.3.13.18 -t sumaclient:15.3.13.18 .
 ```
 
-## Use the host's RMT server connection to retrieve packages for image building
+## Building images on SLE systems registered with RMT or SMT
+The SLE-based images use https://github.com/SUSE/container-suseconnect for accessing remote repositories during image building. Therefore, it is important to note the following: 
+
+> When the host system used for building the docker images is registered against RMT or SMT it is only possible to build containers for the same SLE code base as the host system is running on. I.e. if you docker host is a SLE15 system you can only build SLE15 based images out of the box.
+> 
+> If you want to build for a different SLE version than what is running on the host machine you will need to inject matching credentials for that target release into the build. For details on how to achieve that please follow the steps outlined in the [Building images on non SLE distributions](https://github.com/SUSE/container-suseconnect#building-images-on-non-sle-distributions) section.
+
+### Use the host's RMT server connection to retrieve packages for image building
 
 Retrieve the RMT's CA certificate and add it to your Dockerfile (right at the beginning):
 ```
