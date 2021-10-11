@@ -10,13 +10,14 @@ The container needs the name of an accessible SUSE Manager server and an activat
 
 # Requirements
 
-This container image requires Podman to work correctly. Docker does not seem to have the capability to run Systemd on PID 1.
+* This project requires Podman to work correctly. Docker does not seem to have the capability to run containers with Systemd on PID 1.
+* The host which runs Podman needs to be registered against SUSE Customer Center (SCC) or a local RMT server to be able to share its repository access (via "container-suseconnect-zypp") while building SLE-based images. iSee [here](#use-the-hosts-rmt-server-connection-to-retrieve-packages-for-image-building) to learn how to share and use your RMT's CA certificate during image building.
 
 # Checkout
 
 ```
 git clone ...
-cd suse-docker-saltclient
+cd container-image-suma-client
 ```
 
 # Preparations on SUSE Manager
@@ -38,11 +39,11 @@ This repository contains a few different Dockerfiles. Pick one and copy it to `D
 
 ```
 cp Dockerfile.sle15-sp3\:latest Dockerfile
-podman build -t saltclient .
+podman build -t sumaclient .
 ```
 or
 ```
-podman build -f Dockerfile.sle15-sp3:latest -t saltclient .
+podman build -f Dockerfile.sle15-sp3:latest -t sumaclient .
 ```
 
 # Run
@@ -55,9 +56,9 @@ podman build -f Dockerfile.sle15-sp3:latest -t saltclient .
 podman run -d --restart always \
   -e ACTIVATION_KEY=1-mykey \
   -e SUMA_HOSTNAME=suma.example.com \
-  --name saltclient1 \
-  -h saltclient1 \
-  saltclient
+  --name sumaclient1 \
+  -h sumaclient1 \
+  sumaclient
 ```
 
 ## a whole bunch
@@ -68,9 +69,9 @@ do
   podman run -d --restart always \
     -e ACTIVATION_KEY=1-mykey \
     -e SUMA_HOSTNAME=suma.example.com \
-    --name saltclient${i} \
-    -h saltclient${i} \
-    saltclient
+    --name sumaclient${i} \
+    -h sumaclient${i} \
+    sumaclient
 done
 ```
 
@@ -81,7 +82,7 @@ done
 Every container will try to register itself against a SUSE-Manager. To skip registration, change the environment variable `REGISTER=1` to something else:
 
 ```
-podman run....
+podman run ....
   -e REGISTER=0
 .....
 ```
@@ -91,7 +92,7 @@ podman run....
 To reduce performance peaks when creating multiple containers at once, the following environment variables can be used to delay the bootstrap script execution:
 
 ```
-podman run....
+podman run ....
   -e MIN_DELAY_SEC=x -e MAX_DELAY_SEC=y
 .....
 ```
@@ -111,7 +112,7 @@ systemctl restart salt-master.service
 Visit https://registry.suse.com/static/suse/sle15sp3/index.html and pick an image tag with an older date.
 Use this tag in Dockerfile as base image or use:
 ```
-podman build -f Dockerfile-15.3.13.18 -t saltclient:15.3.13.18 .
+podman build -f Dockerfile.sle15-sp3:15.3.13.18 -t sumaclient:15.3.13.18 .
 ```
 
 ## Use the host's RMT server connection to retrieve packages for image building
