@@ -86,11 +86,11 @@ done
 
 ## Delay execution of bootstrap script
 
-To reduce performance peaks when creating and registering multiple containers at once, the following environment variables can be used to delay the bootstrap script execution:
+To reduce performance peaks when creating and registering multiple containers at once, the following environment variables can be used to delay the bootstrap script execution. For example:
 
 ```
 podman run ....
-  -e MIN_DELAY_SEC=x -e MAX_DELAY_SEC=y
+  -e MIN_DELAY_SEC=10 -e MAX_DELAY_SEC=300
 .....
 ```
 
