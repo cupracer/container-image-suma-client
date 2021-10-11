@@ -1,7 +1,10 @@
 FROM opensuse/leap:15.3
 
-#COPY ./some-ca.crt /etc/pki/trust/anchors/some-ca.crt
-#RUN update-ca-certificates
+# ADD http://rmt.test.lan/rmt.crt /etc/pki/trust/anchors/rmt.crt
+# or
+# COPY ./rmt.crt /etc/pki/trust/anchors/rmt.crt
+#
+# RUN update-ca-certificates
 
 RUN zypper -n ref && \
   zypper -n install \
