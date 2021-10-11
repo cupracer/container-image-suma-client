@@ -10,7 +10,7 @@ The container needs the name of an accessible SUSE Manager server and an activat
 
 # Requirements
 
-* This project requires Podman to work correctly. Docker does not seem to have the capability to run containers with Systemd on PID 1.
+* This project requires [Podman](https://github.com/containers/podman) to work correctly. Docker does not seem to have the capability to run containers with Systemd on PID 1.
 * The host which runs Podman needs to be registered against SUSE Customer Center (SCC) or a local RMT server to be able to share its repository access while building SLE-based images. See [Building images on SLE systems registered with RMT or SMT](#building-images-on-sle-systems-registered-with-rmt-or-smt) to learn about limitations on using SLE-based images and how to use your RMT's CA certificate during image building.
 
 # Checkout
