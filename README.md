@@ -124,8 +124,14 @@ The SLE-based images use https://github.com/SUSE/container-suseconnect for acces
 ### Use the host's RMT server connection to retrieve packages for image building
 
 Retrieve the RMT's CA certificate and add it to your Dockerfile (right at the beginning):
+
 ```
-COPY ./rmt-server.crt /etc/pki/trust/anchors/rmt-server.crt
+ADD http://rmt.test.lan/rmt.crt /etc/pki/trust/anchors/rmt.crt
+RUN update-ca-certificates
+```
+or (if you prefer to use a locally available certificate file)
+```
+COPY ./rmt.crt /etc/pki/trust/anchors/rmt.crt
 RUN update-ca-certificates
 ```
 
