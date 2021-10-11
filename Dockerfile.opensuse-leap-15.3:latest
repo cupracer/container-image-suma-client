@@ -30,9 +30,9 @@ RUN systemctl enable \
   uptime-faker.service \
   system-mods.service
 
-ENV REGISTER=1
-ENV ACTIVATION_KEY="1-example-key"
-ENV SUMA_HOSTNAME="suma.example.com"
+ENV ACTIVATION_KEY=""
+ENV SUMA_HOSTNAME=""
+ENV BOOTSTRAP_FILE="bootstrap-podman.sh"
 ENV MIN_DELAY_SEC=0
 ENV MAX_DELAY_SEC=0
 

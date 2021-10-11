@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $REGISTER -eq 1 ];
+if [ "$ACTIVATION_KEY" != "" ] && [ "$SUMA_HOSTNAME" != "" ];
 then
 	if ! [ -f /registered ]; 
 	then
@@ -12,7 +12,7 @@ then
 			sleep $DELAY
 		fi
 
-		curl -Sks https://${SUMA_HOSTNAME}/pub/bootstrap/bootstrap-podman.sh | /bin/bash
+		curl -Sks "https://${SUMA_HOSTNAME}/pub/bootstrap/${BOOTSTRAP_FILE}" | /bin/bash
 		touch /registered
 	else
 		echo "* Machine already registered."

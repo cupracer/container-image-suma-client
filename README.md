@@ -6,7 +6,7 @@ The container needs the name of an accessible SUSE Manager server and an activat
 
 **Please note:** A full Systemd environment is running in the container. I am aware that this procedure does not fit the usual microservice approach. However, the use-case described above aims at generating a large number of dummies in a resource-saving way in order to have a large systemd environment available for testing the SUSE Manager.
 
-**Please note at least:** This container is not meant for production.
+**Please note at least:** This project is not intended for production purposes.
 
 # Requirements
 
@@ -23,6 +23,7 @@ cd container-image-suma-client
 # Preparations on SUSE Manager
 
 Create custom bootstrap script (Don't replace the variables - we need the string as-is!).
+
 ```
 mgr-bootstrap \
   --activation-keys='${ACTIVATION_KEY}' \
@@ -32,6 +33,8 @@ mgr-bootstrap \
   --script=bootstrap-podman.sh \
   --force
 ```
+
+If you need to adjust the `--script=` filename, please also adjust the environment variable `-e BOOTSTRAP_FILE=""` when running a container.
 
 # Build
 
@@ -48,9 +51,13 @@ podman build -f Dockerfile.sle15-sp3:latest -t sumaclient .
 
 # Run
 
-(remember to adjust the variables)
+The images in this project are runnable without additional environment variables. The resulting containers will start Systemd and so to say boot. However, as this project aims at generating containers to be registered against a SUSE Manager, it's necessary to provide at least the environment variables `SUMA_HOSTNAME` and `ACTIVATION_KEY` to initialize the bootstrap process. Remember to adjust these variables accordingly.
 
-## a single instance
+The parameter `--name sumaclient1` is optional and just helps to identify the running container. It must be unique, of course.
+
+The parameter `-h sumaclient1` is optional, too. It sets the container's internal hostname and helps to identify it within SUSE Manager. If it's not set, a hard-to-remember ID will be used instead.
+
+## Run a single instance
 
 ```
 podman run -d --restart always \
@@ -61,7 +68,7 @@ podman run -d --restart always \
   sumaclient
 ```
 
-## a whole bunch
+## Run a whole bunch
 
 ```
 for i in $(seq 1 10); 
@@ -77,19 +84,9 @@ done
 
 # Hints
 
-## Skip SUSE Manager registration
-
-Every container will try to register itself against a SUSE-Manager. To skip registration, change the environment variable `REGISTER=1` to something else:
-
-```
-podman run ....
-  -e REGISTER=0
-.....
-```
-
 ## Delay execution of bootstrap script
 
-To reduce performance peaks when creating multiple containers at once, the following environment variables can be used to delay the bootstrap script execution:
+To reduce performance peaks when creating and registering multiple containers at once, the following environment variables can be used to delay the bootstrap script execution:
 
 ```
 podman run ....
@@ -101,6 +98,8 @@ This will chose a random number between `MIN_DELAY_SEC` and `MAX_DELAY_SEC` and 
 The default values of these variables are "0", so a delay is not used if not requested explicitly.
 
 ## Let salt-master on SUSE-Manager automatically accept new keys
+
+If you prefer not to have to allow each new system individually in SUSE Manager you can customize the salt-master config as follows:
 
 ```
 echo "auto_accept: True" > /etc/salt/master.d/custom.conf
@@ -129,7 +128,7 @@ see:
 - https://github.com/cri-o/ocicni/pull/92/commits/92f104c2fed3d15c416adde0908d4d82ba2083df
 - https://fossies.org/linux/podman/RELEASE_NOTES.md
 
-Creat `/etc/sysctl.d/99-podman.conf`:
+Create `/etc/sysctl.d/99-podman.conf` and increase the following options:
 ```
 cat <<EOF > /etc/sysctl.d/99-podman.conf
 fs.inotify.max_user_instances = 128000
@@ -141,4 +140,6 @@ Load the adjusted values with:
 ```
 sysctl -p --system
 ```
+
+Please note that the above values were chosen very half-heartedly and randomly... but at least they worked for ~500 containers.
 
