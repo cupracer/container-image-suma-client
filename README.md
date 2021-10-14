@@ -57,10 +57,13 @@ The parameter `--name sumaclient1` is optional and just helps to identify the ru
 
 The parameter `-h sumaclient1` is optional, too. It sets the container's internal hostname and helps to identify it within SUSE Manager. If it's not set, a hard-to-remember ID will be used instead.
 
+Optionally use `-e TZ="..."` to set an appropriate timezone. UTC is used as a default.
+
 ## Run a single instance
 
 ```
 podman run -d --restart always \
+  -e TZ="Europe/Berlin" \
   -e ACTIVATION_KEY=1-mykey \
   -e SUMA_HOSTNAME=suma.example.com \
   --name sumaclient1 \
@@ -74,6 +77,7 @@ podman run -d --restart always \
 for i in $(seq 1 10); 
 do 
   podman run -d --restart always \
+    -e TZ="Europe/Berlin" \
     -e ACTIVATION_KEY=1-mykey \
     -e SUMA_HOSTNAME=suma.example.com \
     --name sumaclient${i} \

@@ -14,6 +14,7 @@ RUN zypper -n ref && \
     hostname \
     less \
     systemd-sysvinit \
+    timezone \
     vim \
     w3m \
     wget
