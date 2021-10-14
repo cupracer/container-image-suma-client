@@ -1,0 +1,64 @@
+FROM registry.suse.com/suse/sle15:latest
+
+# ADD http://rmt.test.lan/rmt.crt /etc/pki/trust/anchors/rmt.crt
+# or
+# COPY ./rmt.crt /etc/pki/trust/anchors/rmt.crt
+#
+# RUN update-ca-certificates
+
+RUN zypper -n ref && \
+  zypper -n install \
+    SUSEConnect \
+    awk \
+    command-not-found \
+    curl \
+    hostname \
+    less \
+    openssh-server \
+    systemd-sysvinit \
+    timezone \
+    vim \
+    w3m \
+    wget
+
+COPY ./systemd-logind.service.d_override.conf /etc/systemd/system/systemd-logind.service.d/override.conf
+COPY ./uptime-faker.service /etc/systemd/system/uptime-faker.service
+COPY ./system-mods.service /etc/systemd/system/system-mods.service
+
+COPY ./system-mods.sh /usr/local/sbin/system-mods.sh
+COPY ./uptime.py /usr/local/sbin/uptime.py
+
+RUN chmod +x \
+  /usr/local/sbin/system-mods.sh \
+  /usr/local/sbin/uptime.py
+
+RUN systemctl enable \
+  uptime-faker.service \
+  system-mods.service
+
+ENV ACTIVATION_KEY=""
+ENV SUMA_HOSTNAME=""
+ENV BOOTSTRAP_FILE="bootstrap-podman.sh"
+ENV MIN_DELAY_SEC=0
+ENV MAX_DELAY_SEC=0
+ENV ENABLE_SSH=0
+
+CMD [ "/sbin/init" ]
+
+ARG SCC_REG_EMAIL
+ARG SCC_REG_CODE
+
+RUN rpm -e --nodeps sles-release \
+    && SUSEConnect -e $SCC_REG_EMAIL -r $SCC_REG_CODE -p SUSE-Manager-Proxy/4.2/x86_64 \
+    && SUSEConnect -p sle-module-desktop-applications/15.3/x86_64 \
+    && SUSEConnect -p sle-module-development-tools/15.3/x86_64
+
+RUN sed -i 's/^solver.onlyRequires.*=.*/solver.onlyRequires = false/' /etc/zypp/zypp.conf
+
+RUN zypper -n in -t pattern suma_proxy
+
+RUN SUSEConnect -d -p sle-module-containers/15.3/x86_64 \
+    && SUSEConnect -d
+
+CMD [ "/sbin/init" ]
+
