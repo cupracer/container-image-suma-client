@@ -13,6 +13,7 @@ RUN zypper -n ref && \
     curl \
     hostname \
     less \
+    openssh-server \
     systemd-sysvinit \
     timezone \
     vim \
@@ -39,6 +40,7 @@ ENV SUMA_HOSTNAME=""
 ENV BOOTSTRAP_FILE="bootstrap-podman.sh"
 ENV MIN_DELAY_SEC=0
 ENV MAX_DELAY_SEC=0
+ENV ENABLE_SSH=0
 
 CMD [ "/sbin/init" ]
 

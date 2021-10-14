@@ -59,6 +59,8 @@ The parameter `-h sumaclient1` is optional, too. It sets the container's interna
 
 Optionally use `-e TZ="..."` to set an appropriate timezone. UTC is used as a default.
 
+Use `-e ENABLE_SSH=1` to enable sshd.service in the container.
+
 ## Run a single instance
 
 ```

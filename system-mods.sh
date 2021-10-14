@@ -24,3 +24,8 @@ else
 	echo "* Registration disabled."
 fi
 
+if [ $ENABLE_SSH -eq 1 ];
+then
+	systemctl enable --now sshd.service
+fi
+

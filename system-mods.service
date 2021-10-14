@@ -3,7 +3,7 @@ Description=Apply system modifications
 
 [Service]
 Type=oneshot
-PassEnvironment=ACTIVATION_KEY SUMA_HOSTNAME BOOTSTRAP_FILE MIN_DELAY_SEC MAX_DELAY_SEC
+PassEnvironment=ACTIVATION_KEY SUMA_HOSTNAME BOOTSTRAP_FILE MIN_DELAY_SEC MAX_DELAY_SEC ENABLE_SSH
 ExecStart=/usr/local/sbin/system-mods.sh
 RemainAfterExit=true
 StandardOutput=journal
